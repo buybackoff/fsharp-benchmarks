@@ -1,4 +1,4 @@
-# StringLength-Optimization
+# String.length optimization in FSharp.Core
 
 Just a simple BenchMark test for a small optimization of `String.length` in F#. Previously, the function always called the `System.String::Length` method twice. It's now down to one call only. This optimization has already been merged into F#, see: https://github.com/dotnet/fsharp/pull/9469 (more analysis in that issue).
 
