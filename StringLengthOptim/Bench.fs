@@ -10,6 +10,7 @@ open Microsoft.FSharp.NativeInterop
 open System.Text
 open System.Runtime.InteropServices
 open System.Buffers
+open System.Diagnostics
 
 module Data =
     let get value =
@@ -41,15 +42,6 @@ module StringLength=
 
 
 
-[<MaxRelativeError(0.01)>]
-//[<MaxWarmupCount(5); MinWarmupCount(2)>]
-//[<IterationTime(120.)>]
-//[<MaxIterationCount 30; MinIterationCount 5>]
-//[<LegacyJitX64Job>]
-//[<LegacyJitX86Job>]
-//[<RyuJitX86Job>] (not available???)
-//[<RyuJitX64Job>]
-[<SimpleJob(RuntimeMoniker.NetCoreApp31)>]
 [<MemoryDiagnoser>]
 [<CategoriesColumn; RankColumn>]
 //[<GroupBenchmarksBy([|BenchmarkLogicalGroupRule.ByCategory|])>]
@@ -61,6 +53,13 @@ type BenchLength() =
     //[<Params(0, 1, 2, 10)>]
     [<Params(1)>]
     val mutable Size: int
+
+    [<GlobalSetup>]
+    member this.PrintAssemblyPath() =
+        let asm = typeof<FSharp.Core.EntryPointAttribute>.Assembly
+        let version = FileVersionInfo.GetVersionInfo(asm.Location)
+        printfn "Assembly: %A" (asm.CodeBase)
+        printfn "Version: %A" (version.FileVersion)
 
     [<Benchmark(OperationsPerInvoke=10_000, Baseline = true)>]
     member this.optimized() =
