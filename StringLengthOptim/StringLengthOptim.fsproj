@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="deps\FSharp.Core.xml" />
+    <Content Include="deps\FSharp.Core.dll" />
+    <Compile Include="Bench.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FSharp.Core" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <Reference Update="FSharp.Core">
+      <HintPath>deps\FSharp.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+    
+</Project>
