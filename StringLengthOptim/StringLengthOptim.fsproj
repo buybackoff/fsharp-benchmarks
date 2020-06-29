@@ -3,12 +3,12 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
+    <!-- only "Release" builds are optimized by default -->
+    <Optimize>true</Optimize>
+    <DisableImplicitFSharpCoreReference Condition=" '$(Configuration)' == 'LocalBuild' ">true</DisableImplicitFSharpCoreReference>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="deps\FSharp.Core.xml" />
-    <Content Include="deps\FSharp.Core.dll" />
     <Compile Include="Bench.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -22,7 +22,9 @@
     <Reference Include="FSharp.Core" />
   </ItemGroup>
     
-  <ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'LocalBuild' ">
+    <Content Include="deps\FSharp.Core.xml" />
+    <Content Include="deps\FSharp.Core.dll" />
     <Reference Update="FSharp.Core">
       <HintPath>deps\FSharp.Core.dll</HintPath>
     </Reference>
