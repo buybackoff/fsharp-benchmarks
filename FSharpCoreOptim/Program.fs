@@ -13,7 +13,8 @@ let main argv =
 
     let baseJob = Job.Default
                     .WithWarmupCount(1) // 1 warmup is enough for our purpose
-                    .WithIterationTime(TimeInterval.FromMilliseconds(250.0)) // the default is 0.5s per iteration
+//                    .WithIterationTime(TimeInterval.FromMilliseconds(250.0)) // the default is 0.5s per iteration
+//                    .WithIterationCount(20)
                     .WithMaxRelativeError(0.01)
 
     let jobBefore = baseJob.WithId("Before");
