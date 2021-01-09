@@ -10,11 +10,12 @@ Assumes that this repo is in the same folder as https://github.com/dotnet/fsharp
 \dev\
     \fsharp
     \fsharp-benchmarks
+    \FSCoreMain50        # binaries from Main branch for Before changes
+    \FSCoreNuGet50       # binaries from the latest NuGet release
 ```
 
 Workflow:
 
 * Build FSharp.Core project after changes
-* Run `dotnet run` from `\fsharp-benchmarks\FSharpCoreOptim`
+* Run `dotnet run` from `\fsharp-benchmarks\FSharpCoreOptim` (or just run the project from IDE)
 
-(Not ideal, but works pretty well)

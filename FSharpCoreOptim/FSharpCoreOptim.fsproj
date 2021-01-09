@@ -2,23 +2,27 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <TieredCompilation>false</TieredCompilation>
     <!-- only "Release" builds are optimized by default -->
-    <Optimize>true</Optimize>
-    <DisableImplicitFSharpCoreReference Condition=" '$(Configuration)' == 'LocalBuild' ">true</DisableImplicitFSharpCoreReference>
+<!--    <Optimize>true</Optimize>-->
+<!--    <DisableImplicitFSharpCoreReference Condition=" '$(Configuration)' == 'LocalBuild' ">true</DisableImplicitFSharpCoreReference>-->
+    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
     <RootNamespace>FSharpCoreOptim</RootNamespace>
-    <Configurations>Debug;Release;LocalBuild</Configurations>
+    <Configurations>Release;Debug;After;Main50;NuGet50</Configurations>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Types.fs" />
     <Compile Include="Bench.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+    <PackageReference Include="Spreads.Core" Version="2020.0.114" />
+    <PackageReference Include="Spreads.Native" Version="2020.1.907" />
     <PackageReference Include="System.Globalization" Version="4.3.0" />
   </ItemGroup>
 
@@ -26,13 +30,33 @@
     <Reference Include="FSharp.Core" />
   </ItemGroup>
     
-  <ItemGroup Condition=" '$(Configuration)' == 'LocalBuild' ">
+  <ItemGroup Condition=" '$(Configuration)' == 'After' ">
     <Content Include="..\..\fsharp\artifacts\bin\FSharp.Core\Release\netstandard2.0\FSharp.Core.xml" />
-    <Content Include="..\..\fsharp\artifacts\bin\FSharp.Core\Release\netstandard2.0\FSharp.Core.dll" >
+    <Content Include="..\..\fsharp\artifacts\bin\FSharp.Core\Release\netstandard2.0\FSharp.Core.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Reference Update="FSharp.Core">
       <HintPath>..\..\fsharp\artifacts\bin\FSharp.Core\Release\netstandard2.0\FSharp.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)' == 'Main50' ">
+    <Content Include="..\..\FSCoreMain50\FSharp.Core.xml" />
+    <Content Include="..\..\FSCoreMain50\FSharp.Core.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Reference Update="FSharp.Core">
+      <HintPath>..\..\fsharp\FSCoreMain50\FSharp.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)' == 'NuGet50' ">
+    <Content Include="..\..\FSCoreNuGet50\FSharp.Core.xml" />
+    <Content Include="..\..\FSCoreNuGet50\FSharp.Core.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Reference Update="FSharp.Core">
+      <HintPath>..\..\fsharp\FSCoreNuGet50\FSharp.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
     
